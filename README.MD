@@ -1,14 +1,27 @@
+Tag: [![](https://jitpack.io/v/App-Ringer/SQLBase-Android.svg)](https://jitpack.io/#App-Ringer/SQLBase-Android)
+
 # SqlBase
 
 SqlBase is a library that provides a convenient API for performing common operations on an SQL database. It includes functionality for inserting and retrieving data, as well as user authentication.
 
 ## Installation
 
+Add it in your root build.gradle at the end of repositories:
+
+```gradle
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 To use SqlBase in your project, you can add the following dependency to your `build.gradle` file:
 
-```groovy
+```gradle
 dependencies {
-    implementation 'com.appringer.sqlbase:1.0.0'
+    implementation 'com.github.App-Ringer:SQLBase-Android:Tag'
 }
 ```
 
