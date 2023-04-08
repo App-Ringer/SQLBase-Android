@@ -2,6 +2,7 @@ package com.appringer.sqlbase.sqlbase
 
 import android.content.Context
 import com.appringer.sqlbase.config.SQLBasePreferenceHelper
+import com.appringer.sqlbase.model.DeleteAccountRequest
 import com.appringer.sqlbase.model.LoginRequest
 import com.appringer.sqlbase.model.Request
 import com.appringer.sqlbase.network.NetworkHelper
@@ -29,5 +30,18 @@ internal class Execute(private val tableName: String?=null, private val query: Q
 
     fun logout(context: Context) {
         SQLBasePreferenceHelper.clear(context)
+    }
+
+    fun deleteAccount(
+        userId: Int,
+        context: Context,
+        onSuccessListener: ((isSuccessful: Boolean, data: String) -> Unit)?,
+        onFailureListener: ((Exception) -> Unit)?
+    ) {
+        val request = DeleteAccountRequest(userId)
+        NetworkHelper.deleteAccount(request,
+            context,
+            onSuccessListener,
+            onFailureListener)
     }
 }

@@ -2,6 +2,7 @@ package com.appringer.sqlbase.network
 
 import com.appringer.sqlbase.config.SQLBasePreferenceHelper
 import com.appringer.sqlbase.constants.URLConstant
+import com.appringer.sqlbase.model.DeleteAccountRequest
 import com.appringer.sqlbase.model.LoginRequest
 import com.appringer.sqlbase.model.LoginResponse
 import com.appringer.sqlbase.model.Request
@@ -9,6 +10,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -33,4 +35,6 @@ internal interface API {
     @POST(URLConstant.LOGIN)
     suspend fun login(@Header("Authorization")token:String,@Body request: LoginRequest): Response<LoginResponse>
 
+    @HTTP(method = "DELETE", path = URLConstant.DELETE_ACCOUNT, hasBody = true)
+    suspend fun deleteAccount(@Header("Authorization")token:String,@Body request: DeleteAccountRequest): Response<com.appringer.sqlbase.model.Response>
 }

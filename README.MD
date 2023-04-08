@@ -121,3 +121,25 @@ SqlBase.Database()
 ```
 
 This code builds an SQL query to retrieve data from the my_table table, where field1 is equal to "value1", orders the results by field2 in descending order, limits the results to 10, and offsets the results by 0.
+
+The deleteAccount method of the Database class is used to delete a user account from the SQL database.
+
+Parameters
+userId - The ID of the user account to be deleted.
+context - The Context object used to access the Android application environment.
+
+```kotlin
+    SqlBase.Database()
+    .addOnSuccessListener { isSuccessful, body ->
+        // Handle successful response
+    }
+    .addOnFailureListener {
+        // Handle failure
+    }
+    .deleteAccount(
+        userId,
+        context = MyApplication.context()
+    )
+```
+
+This code deletes the user account with the specified ID from the SQL database and sets callbacks to be executed when the operation completes successfully or fails, respectively.

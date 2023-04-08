@@ -5,4 +5,5 @@ internal object URLConstant {
     const val GET = "get"
     const val DELETE = "delete"
     const val LOGIN = "login"
+    const val DELETE_ACCOUNT = "delete-account"
 }

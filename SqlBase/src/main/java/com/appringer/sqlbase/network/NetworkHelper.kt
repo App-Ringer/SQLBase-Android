@@ -2,6 +2,7 @@ package com.appringer.sqlbase.network
 
 import android.content.Context
 import com.appringer.sqlbase.config.SQLBasePreferenceHelper
+import com.appringer.sqlbase.model.DeleteAccountRequest
 import com.appringer.sqlbase.model.LoginRequest
 import com.appringer.sqlbase.model.LoginResponse
 import com.appringer.sqlbase.model.Request
@@ -89,6 +90,39 @@ internal object NetworkHelper {
             try {
                 SQLBasePreferenceHelper.getAuthToken(context)?.let {
                     val response = APIInstance.api.get(request = request, token = it)
+                    onSuccessListener?.let {
+                        withContext(Dispatchers.Main) {
+                            it(
+                                response.isSuccessful,
+                                GSONUtils.toString(response.body())
+                            )
+                        }
+                    }
+                } ?: onFailureListener?.let {
+                    withContext(Dispatchers.Main) {
+                        it(Exception("Data error"))
+                    }
+                }
+            } catch (e: Exception) {
+                onFailureListener?.let {
+                    withContext(Dispatchers.Main) {
+                        it(e)
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteAccount(
+        request: DeleteAccountRequest,
+        context: Context,
+        onSuccessListener: ((isSuccessful: Boolean, data: String) -> Unit)?,
+        onFailureListener: ((Exception) -> Unit)?
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                SQLBasePreferenceHelper.getAuthToken(context)?.let {
+                    val response = APIInstance.api.deleteAccount(request = request, token = it)
                     onSuccessListener?.let {
                         withContext(Dispatchers.Main) {
                             it(

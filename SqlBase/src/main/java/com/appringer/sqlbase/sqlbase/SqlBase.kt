@@ -1,6 +1,7 @@
 package com.appringer.sqlbase.sqlbase
 
 import android.content.Context
+import com.appringer.sqlbase.model.DeleteAccountRequest
 import com.appringer.sqlbase.model.LoginRequest
 
 class SqlBase private constructor(
@@ -83,6 +84,12 @@ class SqlBase private constructor(
             val request = LoginRequest(countryCode, mobileNumber, uid)
             val execute = Execute(tableName, query)
             execute.login(token, request, context, onSuccessListener, onFailureListener)
+            return SqlBase(tableName, execute)
+        }
+
+        fun deleteAccount( userId: Int, context: Context): SqlBase {
+            val execute = Execute(tableName, query)
+            execute.deleteAccount(userId, context, onSuccessListener, onFailureListener)
             return SqlBase(tableName, execute)
         }
     }
